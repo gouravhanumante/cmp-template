@@ -1,0 +1,12 @@
+<resources>
+    <!--
+      App shell copy. Keep each string a whole sentence; word order differs per language.
+      To translate, add values-<lang>/ with the same names. Compose Resources does not unescape
+      Android's \' so write apostrophes plainly.
+    -->
+    <string name="app_maintenance_title">Down for maintenance</string>
+    <string name="app_maintenance_message">The app is down for a short maintenance. Please try again in a few minutes.</string>
+    <string name="app_update_title">Update required</string>
+    <string name="app_update_message">This version is no longer supported. Please update to keep using the app.</string>
+    <string name="app_update_action">Update</string>
+</resources>

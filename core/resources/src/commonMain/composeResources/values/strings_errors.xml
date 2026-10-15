@@ -1,0 +1,15 @@
+<resources>
+    <!-- DomainError copy. See DomainErrorMessages.toUserMessage(). -->
+    <string name="error_no_connection">You appear to be offline. Check your connection and try again.</string>
+    <string name="error_timeout">That took too long. Please try again.</string>
+    <string name="error_unauthorized">Your session has ended. Please sign in again.</string>
+    <string name="error_account_suspended">This account has been suspended. Contact support for help.</string>
+    <string name="error_forbidden">You don't have access to that.</string>
+    <string name="error_not_found">We couldn't find what you were looking for.</string>
+    <string name="error_unexpected">Something went wrong. Please try again.</string>
+    <string name="error_rate_limited_seconds">Too many attempts. Please wait %1$d seconds before trying again.</string>
+    <string name="error_rate_limited">Too many attempts. Please wait a little while before trying again.</string>
+    <string name="error_upgrade_required">That's a Premium feature.</string>
+    <string name="error_validation">Please check the details you entered.</string>
+    <string name="error_rejected">We couldn't complete that request.</string>
+</resources>

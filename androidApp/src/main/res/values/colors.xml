@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Keep equal to the palette's primaryContainer (core/designsystem Palette.kt) so the native
+         splash and the in-app loading screen read as one screen. -->
+    <color name="splash_background">#DCEAE2</color>
+</resources>

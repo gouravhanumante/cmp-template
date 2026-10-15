@@ -1,0 +1,28 @@
+<resources>
+    <!-- feature:home. One strings_<feature>.xml per feature. -->
+    <string name="home_eyebrow">Compose Multiplatform template</string>
+    <string name="home_title">Welcome to Gourav's multiplatform app template</string>
+    <string name="home_subtitle">One Kotlin codebase for Android, iOS, desktop and web. Replace this screen with your first feature.</string>
+
+    <string name="home_section_included">What's already set up</string>
+    <string name="home_item_platforms_title">Four platforms, one UI</string>
+    <string name="home_item_platforms_body">Android, iOS, desktop (macOS, Windows, Linux) and web (Wasm) share every screen and ViewModel.</string>
+    <string name="home_item_architecture_title">Clean Architecture modules</string>
+    <string name="home_item_architecture_body">core modules for common types, network, storage, design system and resources. Each feature is its own module with data, domain and presentation.</string>
+    <string name="home_item_design_title">Design system</string>
+    <string name="home_item_design_body">Colour, type, spacing and shape tokens, plus buttons, cards, fields, sheets, banners, loaders and image picking.</string>
+    <string name="home_item_network_title">Networking</string>
+    <string name="home_item_network_body">Ktor client with the API envelope, typed errors, single-flight token refresh and maintenance or force-update gates.</string>
+    <string name="home_item_storage_title">Secure storage</string>
+    <string name="home_item_storage_body">Tokens in the Android Keystore, iOS Keychain or desktop credential store. Settings in DataStore.</string>
+    <string name="home_item_tooling_title">Tooling</string>
+    <string name="home_item_tooling_body">Koin, Navigation, MVVM, convention plugins, Kover coverage, Firebase Crashlytics and Analytics, and the Heimdall debug inspector.</string>
+
+    <string name="home_section_backend">Backend</string>
+    <string name="home_backend_subtitle">This sample feature calls GET /health on your API.</string>
+    <string name="home_backend_checking">Checking…</string>
+    <string name="home_backend_online">Online</string>
+    <string name="home_backend_offline">Offline</string>
+    <string name="home_backend_version">Version %1$s</string>
+    <string name="home_check_again">Check again</string>
+</resources>

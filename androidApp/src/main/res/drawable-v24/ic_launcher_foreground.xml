@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Same glyph as AppIcons.Person (core/designsystem, 24x24 viewport, 2dp stroke), scaled 1.8x
+     and centered in the 108x108 adaptive-icon canvas so the launcher/splash icon reads as the
+     same badge as the in-app LaunchScreen composable. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M54,54.9a7.65,7.65 0 1,1 0,-15.3a7.65,7.65 0 1,1 0,15.3z M40.5,67.5C40.5,61.02 46.26,59.4 54,59.4C61.74,59.4 67.5,61.02 67.5,67.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"/>
+</vector>

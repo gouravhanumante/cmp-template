@@ -1,0 +1,39 @@
+<resources>
+    <!--
+      Copy hardcoded inside core:designsystem components. Only literals the component owns live
+      here — anything a caller passes in (title, label, message) stays a plain String parameter.
+
+      Apostrophes are written plainly (don't, you'll). Compose Resources does not unescape
+      Android's \' so a backslash here would render on screen.
+    -->
+
+    <!-- Shared actions and affordances -->
+    <string name="ds_ok">OK</string>
+    <string name="ds_cancel">Cancel</string>
+    <string name="ds_done">Done</string>
+    <string name="ds_back">Back</string>
+    <string name="ds_close">Close</string>
+    <string name="ds_dismiss">Dismiss</string>
+    <string name="ds_try_again">Try again</string>
+
+    <!-- Fields -->
+    <string name="ds_date_placeholder">YYYY-MM-DD</string>
+    <string name="ds_phone_number">Phone number</string>
+    <string name="ds_otp_code">Verification code</string>
+
+    <!-- Image cropper -->
+    <string name="ds_crop_title">Move and scale</string>
+    <string name="ds_crop_hint">Pinch to zoom, drag to reposition</string>
+
+    <!-- Time slider -->
+    <string name="ds_time_start">START</string>
+    <string name="ds_time_end">END</string>
+    <string name="ds_time_duration">DURATION</string>
+
+    <!-- List cards -->
+    <string name="ds_verified">Verified</string>
+    <string name="ds_priority">Priority</string>
+    <string name="ds_needs_your_response">Needs your response</string>
+    <string name="ds_split_bill_own">At the venue, you pay for your own food and drinks</string>
+    <string name="ds_split_bill_covered">At the venue, you cover your food and the companion's food and drinks</string>
+</resources>
