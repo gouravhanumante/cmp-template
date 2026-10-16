@@ -96,10 +96,19 @@ Screen ─events→ ViewModel ─→ (UseCase) ─→ Repository (interface, dom
 
 | Platform | Tokens (`TokenStorage`) | Settings (`KeyValueStore`) |
 |---|---|---|
-| Android | Keystore-encrypted DataStore | DataStore |
-| iOS | Keychain | DataStore in Documents |
-| Desktop | OS credential store via java-keyring | DataStore in the per-user app data folder |
+| Android | Keystore-encrypted DataStore | DataStore in the app's files folder |
+| iOS | Keychain | DataStore in Application Support (Documents would show it in the Files app) |
+| Desktop | OS credential store via java-keyring | DataStore in the per-user app data folder (below) |
 | Web | Access token in memory; refresh token in an HttpOnly cookie the backend sets | `localStorage` (non-secret only) |
+
+The app data folder on computers (`desktopAppDataPath()`, `core/common/src/jvmMain/.../AppDataFolder.jvm.kt`,
+tested by `AppDataFolderTest`), named by `APP_NAME`:
+
+| OS | Folder |
+|---|---|
+| macOS | `~/Library/Application Support/<AppName>` |
+| Windows | `%LOCALAPPDATA%\<AppName>`, not Roaming `%APPDATA%`, which is copied between computers on company networks |
+| Linux | `$XDG_DATA_HOME/<appname>`, else `~/.local/share/<appname>`; created readable by the user only |
 
 ## Strings and resources
 
