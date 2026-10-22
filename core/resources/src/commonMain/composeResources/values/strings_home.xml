@@ -25,4 +25,7 @@
     <string name="home_backend_offline">Offline</string>
     <string name="home_backend_version">Version %1$s</string>
     <string name="home_check_again">Check again</string>
+
+    <string name="home_developer_tools_title">Developer tools</string>
+    <string name="home_developer_tools_body">Database, design system and core checks. Debug builds only.</string>
 </resources>

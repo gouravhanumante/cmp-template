@@ -27,9 +27,10 @@ androidApp / iosApp / desktopApp / webApp   ← entry points, depend only on :sh
             │
           shared                            ← app shell: App.kt, AppViewModel, nav graph, DI, iOS framework
             │
-   feature:*  (feature:home)                ← one module per feature, never depend on each other
+  feature:*  (home, devtools)              ← one module per feature, never depend on each other
             │
    core:network ─ core:datastore            ← Ktor client, API envelope, tokens, key-value store
+  core:database                           ← Room 3, SQLite drivers and the example notes table
    core:designsystem                        ← theme tokens + components
    core:common ─ core:resources             ← AppResult, DomainError, dispatchers / strings, fonts, UiText
 ```
@@ -86,13 +87,57 @@ Screen ─events→ ViewModel ─→ (UseCase) ─→ Repository (interface, dom
 - Two clients (`core/network/.../di/CoreNetworkModule.kt`): `UnauthenticatedClient` (public
   endpoints, token refresh) and `AuthenticatedClient` (bearer token from `TokenStorage`).
 - A 401 triggers one refresh through `POST auth/refresh` (`ApiTokenRefresher.kt`); concurrent 401s
-  share it. A failed refresh clears tokens and emits `SessionEvents`.
+  share it. `RefreshResult.Refused` clears tokens and emits `SessionEvents`; `Unreachable`
+  preserves tokens when offline, rate-limited or the server is unavailable. `AppViewModel`
+  collects session expiry and shows a snackbar (`app_session_expired`).
 - Every request sends `X-App-Platform`, and `X-App-Build` when the build number is known. A response header `X-App-Gate:
   maintenance | update-required` makes `AppGateEvents` emit, and `AppViewModel` swaps the whole UI
   for the gate screen (`shared/.../app/gate/AppGateScreen.kt`).
 - JSON: `ignoreUnknownKeys`, `explicitNulls = false`, so backend additions never break the app.
 
 ## Storage
+
+`core:database` uses Room 3.0.3 (`androidx.room3`) and SQLite 2.7.1. `AppDatabase` declares
+the example `notes` table and `NoteDao`; KSP generates implementations for all four platforms.
+Exported schemas live under `core/database/schemas/` and must accompany future migrations.
+`CoreDatabaseModule.*` uses bundled SQLite in Android's private database directory, iOS
+Application Support, and the desktop app data folder. No destructive-migration fallback is enabled.
+
+### Web database
+
+`CoreDatabaseModule.wasmJs.kt` connects `WebWorkerSQLiteDriver` to the local npm package
+`core/database/worker/`. Its worker runs pinned SQLite Wasm 3.54.1 with the `opfs` VFS when
+cross-origin isolation and `OpfsDb` are available. OPFS data is private to the browser origin;
+changing host or port creates a separate storage area. It is not a server backup.
+
+`webApp/webpack.config.d/devServer.js` sends `Cross-Origin-Opener-Policy: same-origin`
+and `Cross-Origin-Embedder-Policy: require-corp`. Production must send both too. The bundled
+`webApp/src/wasmJsMain/resources/_headers` supplies them for Cloudflare Pages or Netlify.
+Other hosts need equivalent configuration. These policies can affect cross-origin popups
+and embedded content; evaluate those integrations before adding them.
+
+Without available OPFS, the worker uses memory. `databaseStorage()` exposes the expected
+storage mode and the Database page warns when the page lacks isolation or the storage API.
+An OPFS open error is reported rather than silently opening a new in-memory database.
+Browser quotas, private mode and clearing site data can affect persistence. Multi-tab
+contention can produce locking errors; no cross-tab retry coordination has been added.
+
+## Navigation and appearance
+
+`AppShell` owns Home, Test and Settings. Android/iOS use bottom navigation; desktop/web use
+a sidebar from 840 dp and an icon rail below that (`navigationLayout`). Test and all its
+routes are registered only for `AppBuildInfo.isDebug`. Android uses `BuildConfig.DEBUG`,
+iOS uses `Platform.isDebugBinary`, desktop checks the jpackage launcher property, and web
+recognizes localhost/LAN hosts. These are developer-UI switches, not security boundaries.
+
+Settings changes the whole-app palette through `ThemeSettings`, persisted by
+`StoredThemeSettings` in `KeyValueStore`. `AppViewModel.palette` feeds `AppTheme`.
+`WidthClass` centralizes 600/840 dp thresholds. `AppScreen.maxContentWidth` defaults to
+720 dp; pass `Dp.Infinity` for a full-width screen. `AppFormSheet` opens a bottom sheet below
+600 dp and a right-side panel at larger widths. Desktop opens maximized and `SingleInstance`
+prevents a second copy writing to the same local database.
+
+## Settings storage
 
 | Platform | Tokens (`TokenStorage`) | Settings (`KeyValueStore`) |
 |---|---|---|
@@ -115,6 +160,25 @@ tested by `AppDataFolderTest`), named by `APP_NAME`:
 All strings, fonts and images live in `core:resources` (`composeResources/values/strings_<area>.xml`)
 so every module, including `core:common`, can use them. `UiText` carries a string resource or raw
 text through ViewModels; resolve it in a composable with `resolve()`.
+
+The app font is Montserrat, bundled as four static TTFs (Regular, Medium, SemiBold and Bold)
+in `core/resources/src/commonMain/composeResources/font/`. The licence is
+`core/resources/FONT-LICENSE-Montserrat.txt`. `appFontFamily()` and `appTypography()` in
+`core/designsystem/.../theme/Type.kt` own font selection: the local `style()` builder sets
+the family once for all 15 Material text roles. Components choose a typography role, not
+a font family. `AppTheme` installs that typography for the whole app.
+
+Resource-heavy screens can use `import com.boundless.template.core.resources.*` and
+`import com.boundless.template.core.designsystem.component.*` rather than importing every
+string and component separately (`ComponentsScreen.kt`, `ChecksScreen.kt`). Keep individual
+imports where they improve clarity or resolve name collisions.
+
+Button design alternatives are in `docs/design/button-options.html`. This is an interactive
+comparison, not the app's selected button design; it does not change `Buttons.kt`.
+The earlier button hierarchy is retained: `AppSecondaryButton` is outlined (red for
+destructive actions), and `AppTonalButton` is filled. Option D's solid secondary and
+destructive variants were rejected because they competed with the primary action.
+See `core/designsystem/.../component/Buttons.kt` and `theme/Shape.kt` (`AppRadius.button`).
 
 ## DI
 

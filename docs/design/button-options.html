@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button Directions | Boundless</title>
+<style>
+@font-face{font-family:Montserrat;src:url('../../core/resources/src/commonMain/composeResources/font/montserrat_regular.ttf');font-weight:400;font-display:swap}
+@font-face{font-family:Montserrat;src:url('../../core/resources/src/commonMain/composeResources/font/montserrat_semibold.ttf');font-weight:600;font-display:swap}
+@font-face{font-family:Montserrat;src:url('../../core/resources/src/commonMain/composeResources/font/montserrat_bold.ttf');font-weight:700;font-display:swap}
+:root{--ink:#20252e;--muted:#616a76;--line:#dce1e8;--blue:#1d4ed8;--red:#b42332;--amber:#854d0e;--height:48px}
+*{box-sizing:border-box;letter-spacing:0}
+body{margin:0;background:#f7f8fa;color:var(--ink);font:14px/1.5 Montserrat,sans-serif}
+header{background:#fff;border-bottom:1px solid var(--line)}
+.heading{max-width:1440px;margin:auto;padding:28px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+h1{font-size:24px;line-height:1.25;margin:3px 0 0;font-weight:700}
+.eyebrow{font-size:11px;font-weight:600;color:var(--muted)}
+.meta{font-size:12px;color:var(--muted);text-align:right}
+.toolbar{max-width:1440px;padding:18px 36px;margin:auto;display:flex;flex-wrap:wrap;align-items:center;gap:24px}
+fieldset{border:0;margin:0;padding:0;display:flex;gap:0;align-items:center}
+legend{float:left;font-size:12px;margin-right:12px;color:var(--muted)}
+.seg{display:flex;border:1px solid var(--line);border-radius:6px;background:#fff;padding:3px;gap:3px}
+.seg label{position:relative;cursor:pointer;font-size:12px;padding:6px 10px;border-radius:3px}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg label:has(input:checked){background:#eaf0ff;color:#1d4ed8;font-weight:600}
+.seg label:has(input:focus-visible){outline:2px solid var(--blue)}
+.toggle{display:flex;gap:8px;align-items:center;font-size:12px;cursor:pointer}
+input[type=checkbox]{accent-color:var(--blue);width:16px;height:16px}
+main{max-width:1440px;margin:0 auto;padding:14px 36px 40px}
+.directions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.direction{min-width:0}
+.direction-head{min-height:105px;padding:0 0 18px}
+.option{font-size:11px;color:var(--muted);font-weight:600}
+h2{font-size:18px;margin:7px 0 5px;line-height:1.3}
+.direction-head p{margin:0;font-size:12px;color:var(--muted);max-width:28ch}
+.preview{padding:20px;background:#fff;border:1px solid var(--line);border-radius:8px}
+.sample{display:grid;gap:10px}
+.sample-button{height:var(--height);width:100%;padding:0 14px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid transparent;border-radius:6px;font:600 13px Montserrat,sans-serif;cursor:pointer;transition:background .15s,border-color .15s,box-shadow .15s;white-space:normal;line-height:1.2}
+.sample-button:hover{filter:brightness(.96)}
+.sample-button:active{filter:brightness(.9)}
+.sample-button:focus-visible{outline:3px solid #95b5fb;outline-offset:3px}
+.sample-button:disabled{opacity:.42;cursor:not-allowed;filter:none;box-shadow:none}
+.a .secondary{background:#fff;border-color:#b8c0cc;color:#28303c;box-shadow:0 1px 2px #1823360a}
+.a .destructive{background:#fff;border-color:#edb0b8;color:#ae2332}
+.a .tonal{background:#e7f3fb;border-color:#d6eaf6;color:#125d81}
+.a .caution{background:#fff4da;border-color:#f4db9d;color:#7c4b08}
+.b .secondary{background:#f1f3f6;color:#313947}
+.b .destructive{background:#fcebee;color:#a51e30}
+.b .tonal{background:#eaf0ff;color:#244bb2}
+.b .caution{background:#fff3d6;color:#7b4d0a}
+.c .sample-button{border-radius:4px;justify-content:flex-start;border-color:#dde2e9;background:#fff;color:#333d4a;box-shadow:inset 3px 0 var(--stripe)}
+.c .secondary{--stripe:#64748b}
+.c .destructive{--stripe:#bf3447;color:#a51e30}
+.c .tonal{--stripe:#147e9f;color:#12627e;background:#f2fafc}
+.c .caution{--stripe:#c98a15;color:#7b4d0a;background:#fffcf4}
+.d .secondary{background:#303947;color:#fff;border-color:#303947}
+.d .destructive{background:#b42332;color:#fff;border-color:#b42332}
+.d .tonal{background:#e7f6f9;color:#0d6176;border-color:#c2e7ee}
+.d .caution{background:#fff;border-color:#c38a20;color:#80500b}
+.c .symbol{width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--stripe) 10%,white);font-size:13px}
+.detail{margin-top:18px;font-size:12px;display:grid;gap:10px}
+.detail div{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid #edf0f4}
+.detail span:first-child{color:var(--muted)}
+.swatch{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;background:var(--swatch)}
+.choose{width:100%;margin-top:18px;min-height:40px;background:transparent;border:1px solid #cfd5df;border-radius:6px;color:#424c5c;font:600 12px Montserrat,sans-serif;cursor:pointer}
+.choose[aria-pressed=true]{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+.selection{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;min-height:40px}
+.legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center}
+body.compact{--height:38px}
+.round-picker{margin-left:auto}
+body:has(input[name=round][value=new]:checked) .originals{display:none}
+body:has(input[name=round][value=old]:checked) .fresh{display:none}
+.fresh{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.fresh .direction-head{min-height:86px}
+.fresh .preview{padding:26px}
+.context{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid #e5e8ee}
+.context strong{font-size:15px;display:block;margin-top:3px}
+.context small{font-size:11px;color:var(--muted)}
+.context-status{font-size:11px;font-weight:600;color:#4b596d;background:#eef1f5;border-radius:4px;padding:4px 8px;white-space:nowrap}
+.fresh .sample{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.fresh .sample-button{height:calc(var(--height) + 4px);font-size:13px;position:relative;transition:transform .12s,box-shadow .12s,background .12s;filter:none}
+.fresh .sample-button svg{width:17px;height:17px;flex:none;stroke-width:1.8}
+.fresh .label{overflow-wrap:anywhere}
+.fresh .sample-button:hover{filter:none}
+.fresh .secondary{--face:#fff;--edge:#a4adbb;--text:#273342;--shade:#d9dee6}
+.fresh .destructive{--face:#fff0f0;--edge:#c14747;--text:#a32c2c;--shade:#ecc7c7}
+.fresh .tonal{--face:#e8f2ff;--edge:#4d7dca;--text:#214f99;--shade:#bfd2ed}
+.fresh .caution{--face:#fff5dc;--edge:#b78828;--text:#7c560e;--shade:#e8d5a7}
+.e .sample-button{background:linear-gradient(#fff8,var(--face) 80%),var(--face);color:var(--text);border:1px solid var(--edge);border-radius:7px;box-shadow:0 3px 0 var(--shade),0 4px 0 var(--edge),0 5px 7px #18202b0a;transform:translateY(-2px)}
+.e .sample-button:hover{background:var(--face);box-shadow:0 3px 0 var(--shade),0 4px 0 var(--edge),0 6px 10px #18202b17}
+.e .sample-button:active{transform:translateY(1px);box-shadow:0 0 0 var(--edge)}
+.f .sample-button{padding:0 18px 0 0;border-radius:999px;background:var(--face);color:var(--text);border:1px solid var(--edge);overflow:hidden;justify-content:flex-start;gap:14px}
+.f .icon-pocket{height:100%;width:48px;flex:none;display:grid;place-items:center;background:var(--shade);border-right:1px solid color-mix(in srgb,var(--edge) 40%,transparent)}
+.f .sample-button:hover .icon-pocket{background:var(--edge);color:#fff}
+.f .sample-button:active{transform:scale(.97)}
+.g .sample-button{border:2px solid #263243;border-radius:3px;background:var(--face);color:#263243;box-shadow:4px 4px 0 #263243;transform:translate(-2px,-2px);font-weight:700}
+.g .destructive{background:#ffd5d1}
+.g .tonal{background:#b9e9f4}
+.g .caution{background:#ffe29a}
+.g .sample-button:hover{box-shadow:6px 6px 0 #263243;transform:translate(-3px,-3px)}
+.g .sample-button:active{box-shadow:0 0 0 #263243;transform:translate(2px,2px)}
+.h .sample{background:#e9edf2;padding:8px;border:1px solid #d7dde6;border-radius:8px;gap:8px}
+.h .sample-button{height:var(--height);background:#fff;color:var(--text);border:1px solid #d7dde6;border-radius:5px;box-shadow:0 1px 2px #1c273312;gap:8px}
+.h .sample-button:hover{border-color:var(--edge);background:var(--face);box-shadow:0 2px 4px #1c273318}
+.h .sample-button:active{box-shadow:inset 0 1px 3px #1c27331f;background:var(--shade)}
+.h .tonal{background:#2258ca;color:#fff;border-color:#2258ca}
+.h .tonal:hover{background:#1949ae;color:#fff}
+.h .destructive{color:#ab3030}
+.h .caution{color:#805600}
+.fresh .sample-button:disabled{box-shadow:none;transform:none;opacity:.4;cursor:not-allowed;pointer-events:none}
+.fresh .direction-footer{margin-top:20px;display:flex;gap:16px;align-items:center;justify-content:space-between}
+.fresh .direction-footer p{margin:0;font-size:12px;color:var(--muted);max-width:35ch}
+.fresh .choose{margin:0;width:auto;min-width:100px;padding:0 12px;flex:none}
+.fresh .detail{margin-top:24px}
+@media(max-width:1050px){.directions{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}.direction-head{min-height:84px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media(max-width:720px){.fresh{grid-template-columns:1fr}.fresh .direction-head{min-height:0}.round-picker{margin-left:0}.fresh .preview{padding:20px}}
+@media(max-width:390px){.fresh .sample{grid-template-columns:1fr}.context{align-items:flex-start}.fresh .direction-footer{align-items:flex-start}}
+@media(max-width:560px){.heading{padding:22px 20px;align-items:flex-start}.meta{display:none}.toolbar{padding:16px 20px;gap:16px}main{padding:12px 20px 30px}.directions{grid-template-columns:1fr;gap:28px}.direction-head{min-height:0}.preview{padding:20px}.legend{gap:12px}h1{font-size:22px}}
+</style>
+</head>
+<body>
+<header><div class="heading"><div><div class="eyebrow">BOUNDLESS / DESIGN EXPLORATION</div><h1>Button directions, round two</h1></div><div class="meta">Montserrat<br>Shape. Depth. Interaction.</div></div></header>
+<div class="toolbar">
+ <fieldset><legend>Density</legend><div class="seg"><label><input type="radio" name="density" value="comfortable" checked>Comfortable</label><label><input type="radio" name="density" value="compact">Compact</label></div></fieldset>
+ <label class="toggle"><input type="checkbox" id="disabled">Disabled</label>
+ <label class="toggle"><input type="checkbox" id="real-labels" checked>Real action labels</label>
+ <fieldset class="round-picker"><legend>Collection</legend><div class="seg"><label><input type="radio" name="round" value="new" checked>New E-H</label><label><input type="radio" name="round" value="old">Earlier A-D</label></div></fieldset>
+</div>
+<main>
+<div class="directions fresh">
+ <section class="direction e" data-option="E - Tactile"><div class="direction-head"><div class="option">E / RAISED KEYCAPS</div><h2>Tactile</h2><p>A defined face, a shallow bevel, and real travel when pressed.</p></div><div class="preview">
+ <div class="context"><div><small>DOCUMENT WORKSPACE</small><strong>Quarterly report</strong></div><span class="context-status">Draft</span></div>
+ <div class="sample">
+ <button class="sample-button secondary" data-label="Secondary" data-action="View details"><i data-lucide="file-text" aria-hidden="true"></i><span class="label">View details</span></button>
+ <button class="sample-button destructive" data-label="Destructive" data-action="Delete draft"><i data-lucide="trash-2" aria-hidden="true"></i><span class="label">Delete draft</span></button>
+ <button class="sample-button tonal" data-label="Tonal" data-action="Save changes"><i data-lucide="save" aria-hidden="true"></i><span class="label">Save changes</span></button>
+ <button class="sample-button caution" data-label="Caution" data-action="Pause review"><i data-lucide="pause" aria-hidden="true"></i><span class="label">Pause review</span></button>
+ </div><div class="direction-footer"><p>Desktop utility feel. The button visibly sinks under your pointer.</p><button class="choose" aria-pressed="false">Choose E</button></div></div></section>
+ <section class="direction f" data-option="F - Capsule"><div class="direction-head"><div class="option">F / ICON CHAMBER</div><h2>Capsule</h2><p>A separate icon chamber, rounded silhouette, generous hit area.</p></div><div class="preview">
+ <div class="context"><div><small>DELIVERY CONTROLS</small><strong>Friday dispatch</strong></div><span class="context-status">Scheduled</span></div>
+ <div class="sample">
+ <button class="sample-button secondary" data-label="Secondary" data-action="Track parcel"><span class="icon-pocket"><i data-lucide="package" aria-hidden="true"></i></span><span class="label">Track parcel</span></button>
+ <button class="sample-button destructive" data-label="Destructive" data-action="Cancel order"><span class="icon-pocket"><i data-lucide="x" aria-hidden="true"></i></span><span class="label">Cancel order</span></button>
+ <button class="sample-button tonal" data-label="Tonal" data-action="Print label"><span class="icon-pocket"><i data-lucide="printer" aria-hidden="true"></i></span><span class="label">Print label</span></button>
+ <button class="sample-button caution" data-label="Caution" data-action="Hold shipment"><span class="icon-pocket"><i data-lucide="pause" aria-hidden="true"></i></span><span class="label">Hold shipment</span></button>
+ </div><div class="direction-footer"><p>Touch-first controls. A compact, clearly bounded alternative to full-width bars.</p><button class="choose" aria-pressed="false">Choose F</button></div></div></section>
+ <section class="direction g" data-option="G - Offset"><div class="direction-head"><div class="option">G / HARD OFFSET</div><h2>Offset</h2><p>Thick contours and a solid offset base. Deliberately graphic.</p></div><div class="preview">
+ <div class="context"><div><small>CREATIVE WORKSPACE</small><strong>Spring collection</strong></div><span class="context-status">Editing</span></div>
+ <div class="sample">
+ <button class="sample-button secondary" data-label="Secondary" data-action="Preview"><i data-lucide="eye" aria-hidden="true"></i><span class="label">Preview</span></button>
+ <button class="sample-button destructive" data-label="Destructive" data-action="Discard edits"><i data-lucide="trash-2" aria-hidden="true"></i><span class="label">Discard edits</span></button>
+ <button class="sample-button tonal" data-label="Tonal" data-action="Export file"><i data-lucide="download" aria-hidden="true"></i><span class="label">Export file</span></button>
+ <button class="sample-button caution" data-label="Caution" data-action="Unpublish"><i data-lucide="eye-off" aria-hidden="true"></i><span class="label">Unpublish</span></button>
+ </div><div class="direction-footer"><p>A bold visual identity. The face meets its shadow when you press it.</p><button class="choose" aria-pressed="false">Choose G</button></div></div></section>
+ <section class="direction h" data-option="H - Action Dock"><div class="direction-head"><div class="option">H / GROUPED TOOLBAR</div><h2>Action dock</h2><p>Individual buttons in a shared, inset control surface.</p></div><div class="preview">
+ <div class="context"><div><small>MESSAGE COMPOSER</small><strong>Weekly update</strong></div><span class="context-status">Ready</span></div>
+ <div class="sample">
+ <button class="sample-button secondary" data-label="Secondary" data-action="Preview"><i data-lucide="eye" aria-hidden="true"></i><span class="label">Preview</span></button>
+ <button class="sample-button destructive" data-label="Destructive" data-action="Discard"><i data-lucide="trash-2" aria-hidden="true"></i><span class="label">Discard</span></button>
+ <button class="sample-button tonal" data-label="Tonal" data-action="Send update"><i data-lucide="send" aria-hidden="true"></i><span class="label">Send update</span></button>
+ <button class="sample-button caution" data-label="Caution" data-action="Pause sending"><i data-lucide="pause" aria-hidden="true"></i><span class="label">Pause sending</span></button>
+ </div><div class="direction-footer"><p>Work-focused grouping with one clear lead action, not four competing full-width bars.</p><button class="choose" aria-pressed="false">Choose H</button></div></div></section>
+</div>
+<div class="directions originals">
+ <section class="direction a" data-option="A - Precision"><div class="direction-head"><div class="option">A / RECOMMENDED</div><h2>Precision</h2><p>Clean outlines, crisp text, cyan and amber fills.</p></div><div class="preview"><div class="sample">
+ <button class="sample-button secondary" data-label="Secondary" data-action="View details"><span class="label">Secondary</span></button>
+ <button class="sample-button destructive" data-label="Destructive" data-action="Delete record"><span class="label">Destructive</span></button>
+ <button class="sample-button tonal" data-label="Tonal" data-action="Save draft"><span class="label">Tonal</span></button>
+ <button class="sample-button caution" data-label="Caution" data-action="Pause delivery"><span class="label">Caution</span></button>
+ </div><div class="detail"><div><span>Edges</span><span>6 px / fine border</span></div><div><span>Emphasis</span><span>Balanced</span></div></div><button class="choose" aria-pressed="false">Choose A</button></div></section>
+ <section class="direction b" data-option="B - Soft Utility"><div class="direction-head"><div class="option">B / QUIET</div><h2>Soft utility</h2><p>Light fills, no outlines, low visual noise.</p></div><div class="preview"><div class="sample">
+ <button class="sample-button secondary" data-label="Secondary" data-action="View details"><span class="label">Secondary</span></button>
+ <button class="sample-button destructive" data-label="Destructive" data-action="Delete record"><span class="label">Destructive</span></button>
+ <button class="sample-button tonal" data-label="Tonal" data-action="Save draft"><span class="label">Tonal</span></button>
+ <button class="sample-button caution" data-label="Caution" data-action="Pause delivery"><span class="label">Caution</span></button>
+ </div><div class="detail"><div><span>Edges</span><span>6 px / no border</span></div><div><span>Emphasis</span><span>Low</span></div></div><button class="choose" aria-pressed="false">Choose B</button></div></section>
+ <section class="direction c" data-option="C - Signal"><div class="direction-head"><div class="option">C / DISTINCTIVE</div><h2>Signal</h2><p>Left-aligned actions with a slim semantic edge.</p></div><div class="preview"><div class="sample">
+ <button class="sample-button secondary" data-label="Secondary" data-action="View details"><span class="symbol" aria-hidden="true">i</span><span class="label">Secondary</span></button>
+ <button class="sample-button destructive" data-label="Destructive" data-action="Delete record"><span class="symbol" aria-hidden="true">&times;</span><span class="label">Destructive</span></button>
+ <button class="sample-button tonal" data-label="Tonal" data-action="Save draft"><span class="symbol" aria-hidden="true">+</span><span class="label">Tonal</span></button>
+ <button class="sample-button caution" data-label="Caution" data-action="Pause delivery"><span class="symbol" aria-hidden="true">!</span><span class="label">Caution</span></button>
+ </div><div class="detail"><div><span>Edges</span><span>4 px / accent edge</span></div><div><span>Emphasis</span><span>Directional</span></div></div><button class="choose" aria-pressed="false">Choose C</button></div></section>
+ <section class="direction d" data-option="D - Bold Contrast"><div class="direction-head"><div class="option">D / STRONG</div><h2>Bold contrast</h2><p>Graphite secondary, solid red destruction.</p></div><div class="preview"><div class="sample">
+ <button class="sample-button secondary" data-label="Secondary" data-action="View details"><span class="label">Secondary</span></button>
+ <button class="sample-button destructive" data-label="Destructive" data-action="Delete record"><span class="label">Destructive</span></button>
+ <button class="sample-button tonal" data-label="Tonal" data-action="Save draft"><span class="label">Tonal</span></button>
+ <button class="sample-button caution" data-label="Caution" data-action="Pause delivery"><span class="label">Caution</span></button>
+ </div><div class="detail"><div><span>Edges</span><span>6 px / mixed</span></div><div><span>Emphasis</span><span>High</span></div></div><button class="choose" aria-pressed="false">Choose D</button></div></section>
+</div>
+<div class="selection" role="status" aria-live="polite">No direction selected.</div>
+<div class="legend"><span><i class="swatch" style="--swatch:#59616e"></i>Neutral action</span><span><i class="swatch" style="--swatch:#b42332"></i>Destructive</span><span><i class="swatch" style="--swatch:#087e9d"></i>Supporting action</span><span><i class="swatch" style="--swatch:#a16207"></i>Caution</span></div>
+</main>
+<script src="lucide.min.js"></script>
+<script>
+if (window.lucide) lucide.createIcons();
+document.querySelectorAll('input[name=density]').forEach(input => input.addEventListener('change', () => document.body.classList.toggle('compact', input.value === 'compact')));
+document.querySelector('#disabled').addEventListener('change', event => document.querySelectorAll('.sample-button').forEach(button => button.disabled = event.target.checked));
+function updateLabels(){document.querySelectorAll('.sample-button').forEach(button => button.querySelector('.label').textContent = document.querySelector('#real-labels').checked ? button.dataset.action : button.dataset.label)}
+document.querySelector('#real-labels').addEventListener('change', updateLabels);
+updateLabels();
+document.querySelectorAll('.choose').forEach(button => button.addEventListener('click', () => {
+ document.querySelectorAll('.choose').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+ document.querySelector('.selection').textContent = 'Selected: ' + button.closest('.direction').dataset.option;
+}));
+document.querySelectorAll('.sample-button').forEach(button => button.addEventListener('click', () => document.querySelector('.selection').textContent = button.closest('.direction').dataset.option + ': ' + button.dataset.action + ' (preview only).'));
+</script>
+</body>
+</html>

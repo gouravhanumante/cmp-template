@@ -55,8 +55,10 @@ kotlin {
             api(projects.core.network)
             api(projects.core.resources)
             implementation(projects.core.datastore)
+            implementation(projects.core.database)
 
             api(projects.feature.home)
+            api(projects.feature.devtools)
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
@@ -76,6 +78,9 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
+        }
+        jvmTest.dependencies {
+            implementation(libs.kotlin.testJunit)
         }
     }
 }

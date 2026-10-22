@@ -60,17 +60,20 @@ fun createAuthenticatedClient(
                 }
                 refreshTokens {
                     // Ktor serialises this block, so concurrent 401s trigger a single refresh.
-                    val stored = tokenStorage.read()
-                    val rotated = stored?.let { tokenRefresher.refresh(it.refreshToken) }
-                    if (rotated == null) {
-                        tokenStorage.clear()
-                        // A fresh install has nothing stored, so there is no session to announce
-                        // the end of — only a real one that stopped working is worth telling about.
-                        if (stored != null) sessionEvents.notifySessionEnded(SessionEndReason.SESSION_EXPIRED)
-                        null
-                    } else {
-                        tokenStorage.save(rotated)
-                        BearerTokens(rotated.accessToken, rotated.refreshToken)
+                    // A fresh install has nothing stored, so there is no session to end.
+                    val stored = tokenStorage.read() ?: return@refreshTokens null
+                    when (val result = tokenRefresher.refresh(stored.refreshToken)) {
+                        is RefreshResult.Renewed -> {
+                            tokenStorage.save(result.tokens)
+                            BearerTokens(result.tokens.accessToken, result.tokens.refreshToken)
+                        }
+                        RefreshResult.Refused -> {
+                            tokenStorage.clear()
+                            sessionEvents.notifySessionEnded(SessionEndReason.SESSION_EXPIRED)
+                            null
+                        }
+                        // Losing signal must not sign anyone out.
+                        RefreshResult.Unreachable -> null
                     }
                 }
                 sendWithoutRequest { true }

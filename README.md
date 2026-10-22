@@ -16,6 +16,8 @@ Package: `com.boundless.template` · Kotlin 2.4 · Compose Multiplatform 1.13 ·
 | Strings and fonts | Compose Resources, one `strings_<area>.xml` per feature | `core/resources/` |
 | Networking | Ktor, API envelope, typed `DomainError`, single-flight token refresh, maintenance/force-update gate | `core/network/` |
 | Storage | Tokens in Keystore / Keychain / desktop credential store; settings in DataStore | `core/datastore/` |
+| Database | Room 3 on all four platforms; bundled SQLite on native/JVM, SQLite Wasm + OPFS on web | `core/database/` |
+| Developer tools | Debug-only Test section with Database, Design system and Core checks; Settings owns theme selection | `feature/devtools/`, `shared/.../app/SettingsScreen.kt` |
 | DI and navigation | Koin, type-safe Navigation Compose | `shared/.../app/di/`, `shared/.../app/navigation/` |
 | Crash reports and analytics | Firebase Crashlytics + Analytics on Android and iOS, off until you add config | `androidApp/build.gradle.kts`, `iosApp/` |
 | Debug inspector | Heimdall overlay in Android debug builds | `androidApp/.../MainActivity.kt` |
@@ -35,6 +37,16 @@ What is **not** here yet is listed in [docs/TODO.md](docs/TODO.md).
 
 Behind a TLS-inspecting proxy (e.g. Zscaler) Gradle can't download Node.js for the web build. Add
 `-PuseSystemNode=true` to use the installed `node` instead (root `build.gradle.kts`).
+On Node versions that support the system CA store, use `NODE_OPTIONS=--use-system-ca` when
+the same proxy blocks npm package installation. For an explicit project path from another folder:
+`/path/to/cmp-template/gradlew -p /path/to/cmp-template :webApp:wasmJsBrowserDevelopmentRun -PuseSystemNode=true`.
+
+The web database requires COOP/COEP headers for persistent OPFS storage. The dev server sets
+them; production hosting must do the same (see [Web database](docs/architecture.md#web-database)).
+Without available OPFS it uses memory, which does not survive reloads.
+
+Render sample Home screenshots with `./gradlew :desktopApp:test -Drender=true`; images are
+written to `desktopApp/build/render/`. Button explorations are in `docs/design/button-options.html`.
 
 The sample screen calls `GET /health` on the backend. With no backend running it shows
 "Offline" and a retry button; that is expected.

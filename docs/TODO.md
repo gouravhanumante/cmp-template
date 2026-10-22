@@ -13,9 +13,31 @@ The network layer is ready for bearer tokens (`AuthenticatedClient`, `TokenStora
 `POST auth/refresh`), but there is no sign-in screen. Options: Supabase Auth, phone OTP against
 your own backend, or email/password. Decide per app.
 
-## Session end is not shown to the user
-`SessionEvents` emits when a refresh fails, but nothing collects it. An app with login should
-observe it in `AppViewModel` and route back to sign-in.
+## Session end has no sign-in route
+`AppViewModel` shows a session-expired snackbar. Apps adding login must also route to their
+sign-in screen; the template has no login feature or per-user cache to clear.
+
+## Tester distribution workflows
+Android release App Distribution options are configured in `androidApp/build.gradle.kts`.
+The requested Android/iOS tester workflows and their signing/identity setup are not yet added.
+
+## Developer tools follow-up
+`feature:devtools` exercises notes, settings, token storage, health, formatting and pickers.
+Complete the manual browser matrix: notes across reloads, two-tab writes, picker selection and
+cancellation, gate simulations, all gallery components, and narrow-window navigation. The gallery
+does not yet include every exported design-system component or a force-update simulation.
+The notes/settings ViewModels and theme persistence need focused unit tests; remaining copied
+DAO/formatting/single-instance tests have not all been mutation-proven.
+
+## Web storage reporting
+The page's `databaseStorage()` checks isolation and the browser storage API, while the worker
+checks whether SQLite actually registered `OpfsDb`. A browser advertising storage but failing VFS
+initialization can therefore disagree with the UI's persistence label. Report the worker's actual
+storage mode before treating the label as a production persistence guarantee.
+
+## Documentation structure
+The detailed Rehearsal-style documentation reorganization is still pending. Current owning docs
+remain `docs/architecture.md` and `docs/features/`; do not assume `docs/frontend/` exists yet.
 
 ## Force update on desktop and web does nothing
 `storeUrl()` returns null for `DESKTOP` and `WEB`, so the "Update" button on the update-required

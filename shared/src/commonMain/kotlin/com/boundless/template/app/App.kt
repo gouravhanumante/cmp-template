@@ -19,7 +19,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.boundless.template.app.gate.AppGateScreen
 import com.boundless.template.app.gate.storeUrl
-import com.boundless.template.app.navigation.AppNavHost
+import com.boundless.template.app.navigation.AppShell
 import com.boundless.template.core.designsystem.theme.AppTheme
 import com.boundless.template.core.resources.Res
 import com.boundless.template.core.resources.UiText
@@ -35,7 +35,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun App(viewModel: AppViewModel = koinViewModel()) {
-    AppTheme {
+    val palette by viewModel.palette.collectAsStateWithLifecycle()
+    AppTheme(palette = palette) {
         val destination by viewModel.destination.collectAsStateWithLifecycle()
         val navController = rememberNavController()
         val snackbarHostState = remember { SnackbarHostState() }
@@ -81,7 +82,7 @@ fun App(viewModel: AppViewModel = koinViewModel()) {
                 }
 
                 AppDestination.Main ->
-                    AppNavHost(
+                    AppShell(
                         navController = navController,
                         // Screens apply their own safe-drawing padding, so consume what the Scaffold inset.
                         modifier = Modifier.padding(padding).consumeWindowInsets(padding),

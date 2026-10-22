@@ -1,3 +1,4 @@
+import com.google.firebase.appdistribution.gradle.AppDistributionExtension
 import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -98,6 +99,12 @@ android {
             if (hasFirebaseConfig) {
                 // R8 renames everything, so a release crash is unreadable without this build's mapping.
                 configure<CrashlyticsExtension> { mappingFileUploadEnabled = true }
+                // appDistributionUploadRelease: the "Android to testers" workflow (.github/workflows).
+                configure<AppDistributionExtension> {
+                    artifactType = "APK"
+                    groups = "testers"
+                    releaseNotes = (findProperty("releaseNotes") as String?).orEmpty()
+                }
             }
         }
         // Production backend with logging on and no minification, for chasing release-only bugs.

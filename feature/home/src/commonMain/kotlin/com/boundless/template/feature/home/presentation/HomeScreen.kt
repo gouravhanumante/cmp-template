@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,6 +16,7 @@ import com.boundless.template.core.designsystem.component.AppCard
 import com.boundless.template.core.designsystem.component.AppHeroCard
 import com.boundless.template.core.designsystem.component.AppListRow
 import com.boundless.template.core.designsystem.component.AppScreen
+import com.boundless.template.core.designsystem.icon.AppIcons
 import com.boundless.template.core.designsystem.component.AppSecondaryButton
 import com.boundless.template.core.designsystem.component.AppSection
 import com.boundless.template.core.designsystem.component.AppStatusPill
@@ -28,6 +30,8 @@ import com.boundless.template.core.resources.home_backend_online
 import com.boundless.template.core.resources.home_backend_subtitle
 import com.boundless.template.core.resources.home_backend_version
 import com.boundless.template.core.resources.home_check_again
+import com.boundless.template.core.resources.home_developer_tools_body
+import com.boundless.template.core.resources.home_developer_tools_title
 import com.boundless.template.core.resources.home_eyebrow
 import com.boundless.template.core.resources.home_item_architecture_body
 import com.boundless.template.core.resources.home_item_architecture_title
@@ -60,17 +64,22 @@ private val includedItems: List<Pair<StringResource, StringResource>> =
         Res.string.home_item_tooling_title to Res.string.home_item_tooling_body,
     )
 
+/** [onOpenDeveloperTools] is null in release builds, which hides the entry. */
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
+fun HomeScreen(
+    viewModel: HomeViewModel = koinViewModel(),
+    onOpenDeveloperTools: (() -> Unit)? = null,
+) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    HomeContent(state = state, onEvent = viewModel::onEvent)
+    HomeContent(state = state, onEvent = viewModel::onEvent, onOpenDeveloperTools = onOpenDeveloperTools)
 }
 
 @Composable
-internal fun HomeContent(
+fun HomeContent(
     state: HomeUiState,
     onEvent: (HomeEvent) -> Unit,
     modifier: Modifier = Modifier,
+    onOpenDeveloperTools: (() -> Unit)? = null,
 ) {
     AppScreen(title = null, modifier = modifier, contentSpacing = Spacing.section) {
         AppHeroCard(
@@ -93,6 +102,16 @@ internal fun HomeContent(
                 includedItems.forEach { (title, body) ->
                     AppListRow(title = stringResource(title), subtitle = stringResource(body))
                 }
+            }
+        }
+
+        if (onOpenDeveloperTools != null) {
+            AppCard(onClick = onOpenDeveloperTools) {
+                AppListRow(
+                    title = stringResource(Res.string.home_developer_tools_title),
+                    subtitle = stringResource(Res.string.home_developer_tools_body),
+                    trailing = { Icon(AppIcons.Chevron, contentDescription = null) },
+                )
             }
         }
     }

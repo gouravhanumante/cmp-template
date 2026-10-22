@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
@@ -24,9 +26,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.boundless.template.core.designsystem.icon.AppIcons
 import com.boundless.template.core.designsystem.theme.AppSize
+import com.boundless.template.core.designsystem.theme.Breakpoints
 import com.boundless.template.core.designsystem.theme.Spacing
 import com.boundless.template.core.resources.*
 import org.jetbrains.compose.resources.stringResource
@@ -44,6 +48,8 @@ fun AppScreen(
     scrollable: Boolean = true,
     scrollState: ScrollState? = null,
     contentSpacing: androidx.compose.ui.unit.Dp = Spacing.md,
+    /** Wider windows centre the screen at this width; pass `Dp.Infinity` for a full-width screen. */
+    maxContentWidth: Dp = Breakpoints.readable,
     bottomBar: (@Composable () -> Unit)? = null,
     /** Rendered at the end of the title row \u2014 for a screen's one toolbar-level action. */
     actions: (@Composable () -> Unit)? = null,
@@ -51,10 +57,11 @@ fun AppScreen(
 ) {
     Column(
         modifier = modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).safeDrawingPadding(),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         if (onBack != null || title != null || actions != null) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.screen, vertical = Spacing.sm),
+                modifier = Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(horizontal = Spacing.screen, vertical = Spacing.sm),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
             ) {
@@ -98,14 +105,22 @@ fun AppScreen(
                     effectiveScrollState?.let { bodyModifier.verticalScroll(it) } ?: bodyModifier
                 }
 
-        Column(
-            modifier = body.padding(horizontal = Spacing.screen, vertical = Spacing.md),
-            verticalArrangement = Arrangement.spacedBy(contentSpacing),
-            content = content,
-        )
+        // The scroll area stays full width so the wheel also scrolls over the side margins.
+        Box(modifier = body, contentAlignment = Alignment.TopCenter) {
+            Column(
+                modifier =
+                    Modifier
+                        .widthIn(max = maxContentWidth)
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .padding(horizontal = Spacing.screen, vertical = Spacing.md),
+                verticalArrangement = Arrangement.spacedBy(contentSpacing),
+                content = content,
+            )
+        }
 
         if (bottomBar != null) {
-            Column(modifier = Modifier.fillMaxWidth().padding(Spacing.screen)) { bottomBar() }
+            Column(modifier = Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(Spacing.screen)) { bottomBar() }
         }
     }
 }

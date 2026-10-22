@@ -1,0 +1,5 @@
+# Read by Cloudflare Pages and Netlify from the site root. Without these the browser won't give the app
+# its file storage, and the web database lives in memory only (docs/frontend/architecture.md, "Web database").
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp

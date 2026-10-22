@@ -8,6 +8,12 @@ if (config.devServer) {
     config.devServer.port = Number(process.env.APP_DEV_PORT || 8081);
     config.devServer.allowedHosts = 'all';
     config.devServer.open = false;
+    // Cross-origin isolation: the web database keeps its file in OPFS only with these (core/database/worker).
+    // Production hosts must send the same two headers; see webApp/src/wasmJsMain/resources/_headers.
+    config.devServer.headers = {
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+    };
     config.devServer.proxy = [
         {
             context: ['/api'],

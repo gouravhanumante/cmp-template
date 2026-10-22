@@ -44,7 +44,7 @@ private object NoTokens : TokenStorage {
     override suspend fun clear() = Unit
 }
 
-private val NoRefresh = TokenRefresher { null }
+private val NoRefresh = TokenRefresher { RefreshResult.Refused }
 
 class AppGateEventsTest {
     @Test

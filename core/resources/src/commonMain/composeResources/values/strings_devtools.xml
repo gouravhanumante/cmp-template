@@ -1,0 +1,132 @@
+<resources>
+    <!-- feature:devtools. Debug builds only (AppBuildInfo.isDebug); never shown to users of a release. -->
+    <string name="devtools_title">Developer tools</string>
+    <string name="devtools_subtitle">Debug builds only. Each page exercises one part of the template on this platform.</string>
+    <string name="devtools_database_title">Database</string>
+    <string name="devtools_database_body">Save notes in the local database and check they survive a restart.</string>
+    <string name="devtools_components_title">Design system</string>
+    <string name="devtools_components_body">Every shared component, in its main states.</string>
+    <string name="devtools_checks_title">Core checks</string>
+    <string name="devtools_checks_body">Settings, secure storage, database, backend, formatting, pickers and app-wide screens.</string>
+
+    <!-- Database -->
+    <string name="devtools_db_subtitle">Notes go into the app's own Room database. Close the app or reload the page and come back: they should still be here.</string>
+    <string name="devtools_db_memory_title">Not kept after a reload</string>
+    <string name="devtools_db_memory_body">This page was served without the COOP and COEP headers, so the browser keeps the database in memory only. See docs/frontend/architecture.md, "Web database".</string>
+    <string name="devtools_db_note_label">New note</string>
+    <string name="devtools_db_add">Save note</string>
+    <string name="devtools_db_count">Notes saved: %1$s</string>
+    <string name="devtools_db_empty_title">No notes yet</string>
+    <string name="devtools_db_empty_body">Write a note and save it. It goes straight into the database.</string>
+    <string name="devtools_db_delete">Delete</string>
+    <string name="devtools_db_delete_all">Delete all notes</string>
+
+    <!-- Core checks -->
+    <string name="devtools_checks_run_all">Run all checks</string>
+    <string name="devtools_check_run">Run</string>
+    <string name="devtools_check_not_run">Not run</string>
+    <string name="devtools_check_running">Running</string>
+    <string name="devtools_check_passed">Passed</string>
+    <string name="devtools_check_failed">Failed</string>
+    <string name="devtools_check_mismatch">It read back a different value from the one it wrote.</string>
+    <string name="devtools_check_settings_title">Settings store</string>
+    <string name="devtools_check_settings_body">Writes a value to DataStore (browser storage on the web) and reads it back.</string>
+    <string name="devtools_check_settings_last">Saved by the last run: %1$s</string>
+    <string name="devtools_check_settings_never">Never run on this device. Run it, restart the app, and the time it saved shows here.</string>
+    <string name="devtools_check_secure_title">Secure storage</string>
+    <string name="devtools_check_secure_body">Saves a throwaway sign-in (Keystore, Keychain, OS credential store or browser memory), reads it back, then restores what was there.</string>
+    <string name="devtools_check_database_title">Database</string>
+    <string name="devtools_check_database_body">Inserts, reads and deletes a row through Room.</string>
+    <string name="devtools_check_backend_title">Backend</string>
+    <string name="devtools_check_backend_body">Calls GET /health on %1$s</string>
+    <string name="devtools_check_backend_version">Server version %1$s</string>
+
+    <string name="devtools_section_build">This build</string>
+    <string name="devtools_platform">Platform</string>
+    <string name="devtools_build_type">Build</string>
+    <string name="devtools_build_debug">Debug</string>
+    <string name="devtools_build_release">Release</string>
+    <string name="devtools_app_build">Build number</string>
+    <string name="devtools_unknown">Unknown</string>
+    <string name="devtools_screen_size">Screen size</string>
+    <string name="devtools_width_compact">Phone (under 600 dp)</string>
+    <string name="devtools_width_medium">Tablet or narrow window (600 to 840 dp)</string>
+    <string name="devtools_width_expanded">Wide screen (840 dp and over)</string>
+    <string name="devtools_storage">Database storage</string>
+    <string name="devtools_storage_device">On this device</string>
+    <string name="devtools_storage_memory">Memory only, lost on reload</string>
+
+    <string name="devtools_section_format">Locale formatting</string>
+    <string name="devtools_format_body">The same number, amount and time as three countries write them, each in its own time zone.</string>
+
+    <string name="devtools_section_pickers">Files and photos</string>
+    <string name="devtools_pick_file">Choose a file</string>
+    <string name="devtools_pick_image">Choose a photo</string>
+    <string name="devtools_picked_file">%1$s, %2$s bytes</string>
+    <string name="devtools_pick_failed">That file couldn't be read.</string>
+
+    <string name="devtools_section_simulate">App-wide screens</string>
+    <string name="devtools_simulate_body">What the whole app shows when the server says so. Nothing is sent to the server.</string>
+    <string name="devtools_simulate_maintenance">Show the maintenance screen</string>
+    <string name="devtools_simulate_session">End the session</string>
+
+    <!-- Design system gallery -->
+    <string name="devtools_cmp_theme">Theme</string>
+    <string name="devtools_cmp_theme_body">Changes the colours of the whole app on this device. Saved for next time.</string>
+    <string name="devtools_cmp_theme_indigo">Indigo</string>
+    <string name="devtools_cmp_theme_teal">Teal</string>
+    <string name="devtools_cmp_theme_terracotta">Terracotta</string>
+    <string name="devtools_cmp_theme_forest">Forest</string>
+    <string name="devtools_cmp_buttons">Buttons</string>
+    <string name="devtools_cmp_primary">Primary</string>
+    <string name="devtools_cmp_secondary">Secondary</string>
+    <string name="devtools_cmp_tonal">Tonal</string>
+    <string name="devtools_cmp_text_button">Text button</string>
+    <string name="devtools_cmp_chip_button">Chip button</string>
+    <string name="devtools_cmp_loading">Loading</string>
+    <string name="devtools_cmp_disabled">Disabled</string>
+    <string name="devtools_cmp_destructive">Destructive</string>
+    <string name="devtools_cmp_caution">Caution</string>
+    <string name="devtools_cmp_selection">Selection</string>
+    <string name="devtools_cmp_option_morning">Morning</string>
+    <string name="devtools_cmp_option_afternoon">Afternoon</string>
+    <string name="devtools_cmp_option_evening">Evening</string>
+    <string name="devtools_cmp_chip_group">Pick any</string>
+    <string name="devtools_cmp_single_choice">Pick one</string>
+    <string name="devtools_cmp_fields">Text fields</string>
+    <string name="devtools_cmp_field_label">Name</string>
+    <string name="devtools_cmp_field_hint">Supporting text sits under the field.</string>
+    <string name="devtools_cmp_field_error">This field has an error.</string>
+    <string name="devtools_cmp_dropdown">Time of day</string>
+    <string name="devtools_cmp_feedback">Feedback</string>
+    <string name="devtools_cmp_notice_title">Heads up</string>
+    <string name="devtools_cmp_notice_body">A notice banner explains something without blocking the screen.</string>
+    <string name="devtools_cmp_status_confirmed">Confirmed</string>
+    <string name="devtools_cmp_status_pending">Pending</string>
+    <string name="devtools_cmp_status_draft">Draft</string>
+    <string name="devtools_cmp_status_cancelled">Cancelled</string>
+    <string name="devtools_cmp_badge">Verified</string>
+    <string name="devtools_cmp_tag">New</string>
+    <string name="devtools_cmp_cards">Cards and rows</string>
+    <string name="devtools_cmp_card_title">Action card</string>
+    <string name="devtools_cmp_card_body">A card with an icon, a message and one action.</string>
+    <string name="devtools_cmp_switch">Notifications</string>
+    <string name="devtools_cmp_summary_label">Subtotal</string>
+    <string name="devtools_cmp_summary_value">1,250</string>
+    <string name="devtools_cmp_tiles">Tiles</string>
+    <string name="devtools_cmp_stat_value">42</string>
+    <string name="devtools_cmp_stat_label">Things done</string>
+    <string name="devtools_cmp_dates">Dates and times</string>
+    <string name="devtools_cmp_date">Date</string>
+    <string name="devtools_cmp_time">Time</string>
+    <string name="devtools_cmp_slider">Distance</string>
+    <string name="devtools_cmp_states">Sheets and screen states</string>
+    <string name="devtools_cmp_open_sheet">Open a form sheet</string>
+    <string name="devtools_cmp_sheet_title">New contact</string>
+    <string name="devtools_cmp_sheet_confirm">Save</string>
+    <string name="devtools_cmp_empty_title">Nothing here yet</string>
+    <string name="devtools_cmp_empty_body">An empty state says why the list is empty and what to do next.</string>
+    <string name="devtools_cmp_error">Something went wrong. This is the full-screen error.</string>
+    <string name="devtools_cmp_icons">Icons</string>
+    <string name="devtools_cmp_confetti">Play confetti</string>
+</resources>

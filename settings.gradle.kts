@@ -40,5 +40,7 @@ include(":core:resources")
 include(":core:designsystem")
 include(":core:datastore")
 include(":core:network")
+include(":core:database")
 
 include(":feature:home")
+include(":feature:devtools")

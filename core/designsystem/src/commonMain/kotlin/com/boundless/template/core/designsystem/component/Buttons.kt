@@ -30,8 +30,14 @@ import com.boundless.template.core.designsystem.theme.AppAccent
 import com.boundless.template.core.designsystem.theme.AppRadius
 import com.boundless.template.core.designsystem.theme.AppSize
 import com.boundless.template.core.designsystem.theme.Spacing
+import com.boundless.template.core.designsystem.theme.WidthClass
+import com.boundless.template.core.designsystem.theme.windowWidthClass
 
 private val ButtonHeight = AppSize.buttonHeight
+
+/** Small on a mouse-driven wide screen; a full touch target on phones. */
+@Composable
+private fun chipHeight() = if (windowWidthClass() == WidthClass.COMPACT) AppSize.minTouch else 36.dp
 
 /**
  * For an action sitting on an accent-filled surface, where the theme's own button colours would
@@ -93,19 +99,12 @@ fun AppPrimaryButton(
     }
 }
 
-/**
- * Middle emphasis. This is the default for supporting actions: an outlined button reads as a
- * chip, so a screen full of them has no hierarchy at all.
- */
 @Composable
 fun AppTonalButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    /** For an action that is consequential but not destructive — reporting a no-show freezes a
-     * payout and opens a review, yet undoes nothing. The solid error outline stays reserved for
-     * the action that actually destroys something. */
     caution: Boolean = false,
 ) {
     val colors = MaterialTheme.colorScheme
@@ -128,7 +127,6 @@ fun AppTonalButton(
     }
 }
 
-/** Lowest-emphasis full-width action. Reserve for the one case that must not compete. */
 @Composable
 fun AppSecondaryButton(
     text: String,
@@ -136,9 +134,6 @@ fun AppSecondaryButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     loading: Boolean = false,
-    /** For the one destructive outline action on a screen (e.g. "Cancel") — a plain hairline
-     * in the neutral outline colour reads as barely-there next to filled buttons, so this
-     * borrows the error colour instead of adding another emphasis tier. */
     destructive: Boolean = false,
 ) {
     val colors = MaterialTheme.colorScheme
@@ -147,11 +142,10 @@ fun AppSecondaryButton(
         modifier = modifier.fillMaxWidth().heightIn(min = ButtonHeight),
         enabled = enabled && !loading,
         shape = AppRadius.button,
-        border =
-            BorderStroke(
-                width = if (destructive) 1.5.dp else 1.dp,
-                color = if (destructive) colors.error else colors.onSurfaceVariant,
-            ),
+        border = BorderStroke(
+            width = if (destructive) 1.5.dp else 1.dp,
+            color = if (destructive) colors.error else colors.onSurfaceVariant,
+        ),
         colors =
             if (destructive) {
                 ButtonDefaults.outlinedButtonColors(contentColor = colors.error)
@@ -206,7 +200,7 @@ fun AppChipButton(
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier.heightIn(min = 36.dp),
+        modifier = modifier.heightIn(min = chipHeight()),
         enabled = enabled,
         shape = AppRadius.pill,
         contentPadding = PaddingValues(horizontal = Spacing.md, vertical = Spacing.xs),

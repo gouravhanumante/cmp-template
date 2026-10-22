@@ -9,6 +9,8 @@ plugins {
     alias(libs.plugins.googleServices) apply false
     alias(libs.plugins.firebaseAppDistribution) apply false
     alias(libs.plugins.firebaseCrashlytics) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.room3) apply false
     alias(libs.plugins.kover)
 }
 
@@ -33,7 +35,9 @@ dependencies {
     kover(project(":core:designsystem"))
     kover(project(":core:datastore"))
     kover(project(":core:network"))
+    kover(project(":core:database"))
     kover(project(":feature:home"))
+    kover(project(":feature:devtools"))
 }
 
 kover {

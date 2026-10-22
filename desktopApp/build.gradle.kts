@@ -10,6 +10,8 @@ dependencies {
     implementation(projects.shared)
     implementation(compose.desktop.currentOs)
     implementation(libs.kotlinx.coroutines.swing)
+    testImplementation(kotlin("test"))
+    testImplementation(libs.compose.material3)
 }
 
 compose.desktop {
@@ -23,7 +25,19 @@ compose.desktop {
             packageVersion = "1.0.0"
             macOS {
                 bundleID = providers.gradleProperty("app.applicationId").get()
+                iconFile.set(project.file("icons/icon.icns"))
+            }
+            windows {
+                iconFile.set(project.file("icons/icon.ico"))
+            }
+            linux {
+                iconFile.set(project.file("icons/icon.png"))
             }
         }
     }
+}
+
+// RenderScreens draws screens to build/render only when asked: -Drender=true.
+tasks.withType<Test>().configureEach {
+    systemProperty("render", providers.systemProperty("render").getOrElse("false"))
 }

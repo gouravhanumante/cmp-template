@@ -19,12 +19,26 @@ Backend card correctly showed "Offline" with a retry.
 |---|---|
 | `build-logic` | `boundless.kmp.library` (Android, iOS, JVM, Wasm targets) and `boundless.kmp.compose` |
 | `core:common` | `AppResult`, `DomainError`, `DispatcherProvider`, `TodayProvider`, `AppMessenger`, `Paged`, `TimeOfDay` |
-| `core:resources` | Compose Resources, Plus Jakarta Sans, `UiText`, strings for app shell, design system, errors, home |
+| `core:resources` | Compose Resources, Montserrat (four static weights, SIL OFL), `UiText`, strings for app shell, design system, errors, home |
 | `core:designsystem` | Theme tokens and components; image picker/cropper and OTP field on all four platforms |
 | `core:datastore` | `TokenStorage` and `KeyValueStore` on all four platforms |
 | `core:network` | Ktor clients, envelope parsing, error mapping, token refresh, app gate |
+| `core:database` | Room 3 on all four platforms; exported notes schema, platform drivers, SQLite Wasm worker; `NoteDaoTest` |
 | `shared` | `App`, `AppViewModel` (maintenance / update gate, snackbar messages), navigation, Koin |
 | `feature:home` | Welcome screen + backend health check, 4 tests |
+| `feature:devtools` | Debug-only Test hub: Database, Design system and Core checks; `DevToolsScreen`, `DatabaseScreen`, `ComponentsScreen`, `ChecksScreen` |
+
+## Verification on 2026-10-22
+
+Passed Android compilation, Android host/unit tests, `jvmTest`, desktop compilation and
+desktop UI tests, web compilation, and `:shared:linkDebugFrameworkIosSimulatorArm64`.
+The web app was launched at localhost:8081 with the isolation headers and Montserrat assets.
+Theme persistence was checked in the browser. The complete manual browser matrix remains
+unfinished; see TODO. The current native applications were compiled, not relaunched.
+
+`SignInRenewalTest`, `ApiTokenRefresherTest`, `ThemeContrastTest` and `SidePanelTest` have
+been seen failing under deliberately planted regressions. Other new tests currently provide
+regression coverage without that mutation proof.
 
 ## Integrations
 | Integration | State |

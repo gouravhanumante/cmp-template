@@ -21,6 +21,11 @@ googleServices = "4.4.2"
 junit = "4.13.2"
 koin = "4.2.2"
 kotlin = "2.4.20"
+# KSP2 is versioned on its own, no longer per Kotlin release.
+ksp = "2.3.12"
+# Room 3 (androidx.room3) is the first Room with a web target. It needs androidx.sqlite 2.7.x.
+room3 = "3.0.3"
+sqlite = "2.7.1"
 kotlinx-coroutines = "1.11.0"
 kotlinx-datetime = "0.8.0"
 kotlinx-serialization = "1.11.0"
@@ -89,6 +94,14 @@ koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "androidx-datastore" }
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 
+# Database: Room 3 on every platform; SQLite bundled on Android/iOS/desktop, a Web Worker in the browser
+room3-runtime = { module = "androidx.room3:room3-runtime", version.ref = "room3" }
+room3-compiler = { module = "androidx.room3:room3-compiler", version.ref = "room3" }
+sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+sqlite-web = { module = "androidx.sqlite:sqlite-web", version.ref = "sqlite" }
+# Browser DOM types (Worker) for Kotlin/Wasm; the version sqlite-web is built against.
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version = "0.5.0" }
+
 # Images
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
@@ -124,3 +137,5 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+room3 = { id = "androidx.room3", version.ref = "room3" }
