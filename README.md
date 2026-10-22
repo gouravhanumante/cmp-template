@@ -5,6 +5,50 @@ the structure, rules and tooling already decided. Start every new app from here.
 
 Package: `com.boundless.template` · Kotlin 2.4 · Compose Multiplatform 1.13 · AGP 9 · Gradle 9
 
+## Screenshots
+
+The shared Home screen on mobile and wide layouts. Click an image for full resolution.
+
+<table>
+  <tr>
+    <th align="center">Android · Pixel 9a emulator</th>
+    <th align="center">iOS · iPhone 17 Pro simulator</th>
+  </tr>
+  <tr>
+    <td align="center"><a href="docs/screenshots/android.png"><img src="docs/screenshots/android.png" width="260" alt="Android Home screen with Montserrat typography and Home, Test and Settings bottom navigation"></a></td>
+    <td align="center"><a href="docs/screenshots/ios.png"><img src="docs/screenshots/ios.png" width="260" alt="iPhone Home screen with Montserrat typography and bottom navigation"></a></td>
+  </tr>
+  <tr>
+    <th align="center">Desktop · Compose-rendered preview</th>
+    <th align="center">Web · running Wasm app</th>
+  </tr>
+  <tr>
+    <td align="center"><a href="docs/screenshots/desktop.png"><img src="docs/screenshots/desktop.png" width="600" alt="Wide Home content rendered with Compose Desktop and sample backend data"></a></td>
+    <td align="center"><a href="docs/screenshots/web.png"><img src="docs/screenshots/web.png" width="600" alt="Running web app with its persistent sidebar and Home screen"></a></td>
+  </tr>
+</table>
+
+Android, iOS and web are direct captures of the running apps. The desktop image is the
+`RenderScreens` Home preview with sample data, not a native window screenshot: macOS screen
+capture permission was unavailable. It omits the app shell and window chrome. No Windows or
+Linux screenshots were captured. The other images show the expected offline state with no
+backend running; Android debug also shows the Heimdall inspector. Themes are saved per device.
+
+<details>
+<summary>Refreshing these images</summary>
+
+- Android: build/install the current debug app, open Home, then use
+  `adb exec-out screencap -p > docs/screenshots/android.png`.
+- iOS: build/install the current simulator app, open Home, then use
+  `xcrun simctl io booted screenshot docs/screenshots/ios.png`.
+- Desktop preview: run `./gradlew :desktopApp:test --tests '*RenderScreens' -Drender=true`
+  and copy `desktopApp/build/render/home-desktop.png` to `docs/screenshots/desktop.png`.
+  Replace it with a real window capture when screen-recording permission is available.
+- Web: run `./gradlew :webApp:wasmJsBrowserDevelopmentRun`, open Home and capture the `#app`
+  element at a desktop browser width to `docs/screenshots/web.png`.
+
+</details>
+
 ## What's already set up
 
 | Area | What you get | Where |

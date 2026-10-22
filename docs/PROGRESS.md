@@ -34,7 +34,10 @@ Passed Android compilation, Android host/unit tests, `jvmTest`, desktop compilat
 desktop UI tests, web compilation, and `:shared:linkDebugFrameworkIosSimulatorArm64`.
 The web app was launched at localhost:8081 with the isolation headers and Montserrat assets.
 Theme persistence was checked in the browser. The complete manual browser matrix remains
-unfinished; see TODO. The current native applications were compiled, not relaunched.
+unfinished; see TODO. Android (Pixel 9a) and iOS (iPhone 17 Pro) were rebuilt, installed and
+launched for the README screenshots in `docs/screenshots/`. The native desktop app also launched;
+its README image uses the `RenderScreens` Home preview because macOS screen capture permission
+was unavailable. The README labels the rendered preview separately from the three direct captures.
 
 `SignInRenewalTest`, `ApiTokenRefresherTest`, `ThemeContrastTest` and `SidePanelTest` have
 been seen failing under deliberately planted regressions. Other new tests currently provide

@@ -52,6 +52,12 @@ token as an HttpOnly cookie and to accept `auth/refresh` with no body token. Rul
 Firebase has no desktop SDK, and the web build doesn't load the JS SDK. Options: Sentry (supports
 JVM and JS), or the Firebase JS SDK through interop on web.
 
+## Native desktop screenshot
+The README uses `RenderScreens` Home content with sample data, not the running desktop window.
+macOS screen capture permission was unavailable. Replace `docs/screenshots/desktop.png` with
+a window-only capture once permission is granted and update its README caption. Windows and
+Linux screenshots have not been captured.
+
 ## Desktop installers are not built in CI
 `.dmg` builds only on macOS and `.msi` only on Windows. CI compiles desktop but doesn't package.
 Notarisation (macOS) and code signing (Windows) are not set up.
